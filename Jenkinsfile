@@ -26,6 +26,13 @@ pipeline {
             }
         }
 
+        stage('Security Scan') {
+            steps {
+                bat 'python -m pip install bandit'
+                bat 'python -m bandit -r app.py'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 bat 'docker build -t lab10-app:latest .'
@@ -42,4 +49,5 @@ pipeline {
         }
     }
 }
+
 
