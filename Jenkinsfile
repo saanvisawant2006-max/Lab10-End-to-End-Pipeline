@@ -1,0 +1,35 @@
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/saanvisawant2006-max/Lab10-End-to-End-Pipeline.git'
+            }
+        }
+
+        stage('Install Dependencies and Test') {
+            steps {
+                bat 'python -m pip install -r requirements.txt'
+                bat 'python -m pytest -v'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                bat 'docker build -t lab10-app:latest .'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Lab 10 pipeline completed successfully.'
+        }
+        failure {
+            echo 'Lab 10 pipeline failed. Check the console output.'
+        }
+    }
+}
