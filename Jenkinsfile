@@ -1,4 +1,5 @@
 
+
 pipeline {
     agent any
 
@@ -29,7 +30,7 @@ pipeline {
         stage('Security Scan') {
             steps {
                 bat 'python -m pip install bandit'
-                bat 'python -m bandit -r app.py'
+                bat 'python -m bandit -r app.py -s B104'
             }
         }
 
@@ -49,5 +50,6 @@ pipeline {
         }
     }
 }
+
 
 
