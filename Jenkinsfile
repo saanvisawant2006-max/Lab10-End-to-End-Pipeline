@@ -3,6 +3,15 @@ pipeline {
     agent any
 
     stages {
+        stage('Check Environment') {
+            steps {
+                bat 'where python'
+                bat 'python --version'
+                bat 'where docker'
+                bat 'docker --version'
+            }
+        }
+
         stage('Checkout') {
             steps {
                 git branch: 'main',
@@ -33,3 +42,4 @@ pipeline {
         }
     }
 }
+
